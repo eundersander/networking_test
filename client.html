@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Client</title>
+</head>
+<body>
+    <h1>Client</h1>
+
+    <script>
+        setInterval(sendRequest, 1000);
+
+        function sendRequest() {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        var response = xhr.responseText;
+                        console.log("Received: " + response);
+                    }
+                }
+            };
+            xhr.open("POST", "http://localhost:8888", true);
+            xhr.setRequestHeader("Content-type", "text/plain");
+            xhr.send("marco");
+            console.log("Sent: marco");
+        }
+    </script>
+</body>
+</html>
