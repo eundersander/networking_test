@@ -111,10 +111,10 @@ function createMouseKeyboardAvatar(scene) {
 
   avatarHandleInputEvents = function () {
     // update hand color; perf todo: is this slow?
-    if (inputMgr.getKeyDown("f")) {
+    if (inputMgr.getKeyDown("f") || inputMgr.getButtonDown(0)) {
       leftHand.material = graspMaterial
       rightHand.material = graspMaterial;
-    } else if (inputMgr.getKeyUp("f")) {
+    } else if (inputMgr.getKeyUp("f") || inputMgr.getButtonUp(0)) {
       leftHand.material = defaultMaterial
       rightHand.material = defaultMaterial;
     }

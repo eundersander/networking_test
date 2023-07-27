@@ -38,6 +38,37 @@ function createGridLines(scene) {
   }
 }
 
+function loadTestModel(scene) {
+
+    // URL to your .glb file
+  const glbURL = "105515211_173104173.glb";
+
+  // Load the .glb file and log progress
+  BABYLON.SceneLoader.ImportMesh("", glbURL, "", scene, 
+    (meshes) => {
+        // Called when the file has finished loading and meshes are available
+        console.log(`loaded ${meshes.length} meshes!`);
+
+        for (let mesh of meshes) {
+          mesh.isPickable = false;
+        }
+      
+    }, 
+    (event) => {
+        // Track the download progress
+        if (event.lengthComputable) {
+            const progress = (event.loaded * 100 / event.total).toFixed(2);
+            console.log(`Downloading: ${progress}%`);
+        }
+    }, 
+    (scene, message, exception) => {
+        // Handle any errors
+        console.error("Error loading the .glb file:", message, exception);
+    }
+  );
+
+}
+
 function createScene(engine, canvas, numCubes) {
   const scene = new BABYLON.Scene(engine);
   scene.clearColor = new BABYLON.Color3.Black;
@@ -99,9 +130,11 @@ function createScene(engine, canvas, numCubes) {
       cubes.push(transformNode);
   }
 
-  const ground = BABYLON.MeshBuilder.CreateGround("ground", { width: 4, height: 4 });
+  const ground = BABYLON.MeshBuilder.CreateGround("ground", { width: 25, height: 25 });
   // createGridLines(scene);
   // const ground = null;
+
+  loadTestModel(scene)
 
   // note that ground mesh is needed for VR
   return [scene, ground, cubes];

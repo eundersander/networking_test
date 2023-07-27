@@ -1,10 +1,10 @@
 const canvas = document.getElementById("renderCanvas");
 const engine = new BABYLON.Engine(canvas, true);
 
-const inputMgr = new InputManager()
-
 const numCubes = 20;
 const [scene, ground, cubes] = createScene(engine, canvas, numCubes);
+
+const inputMgr = new InputManager(scene)
 
 const avatar = createMouseKeyboardAvatar(scene, inputMgr);
 
@@ -17,6 +17,12 @@ let ws = null; // WebSocket instance
 let reconnectIntervalId = null; // Interval ID for reconnection attempts
 
 let xrHelper;
+
+function assert(condition, message) {
+  if (!condition) {
+      throw new Error(message || "Assertion failed");
+  }
+}
 
 function setConnectionState(connected) {
   elem = document.getElementById("connectionState");
@@ -100,6 +106,7 @@ connectWebSocket();
     //     xrHelper = xr;
     // });
 
+
 // Button click event handler to enable VR
 const vrButton = document.getElementById("vrButton");
 vrButton.addEventListener("click", function () {
@@ -116,6 +123,9 @@ vrButton.addEventListener("click", function () {
       } else {
         console.log("Done, WebXR is enabled.");
       }
+
+      // todo: clean these up when exiting VR
+      inputMgr.addVRListeners(xrHelper);
 
       engine.runRenderLoop(() => scene.render());
     });
