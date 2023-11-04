@@ -6,7 +6,7 @@ const [scene, ground, cubes] = createScene(engine, canvas, numCubes);
 
 const inputMgr = new InputManager(scene)
 
-const avatar = createMouseKeyboardAvatar(scene, inputMgr);
+const avatar = createAvatar(scene, inputMgr);
 
 const isHttps = window.location.protocol === "https:";
 // If the page is served over HTTPS, use wss (WebSocket Secure). Otherwise, use ws.

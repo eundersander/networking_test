@@ -1,6 +1,6 @@
 
 // Function to create a user-controlled box in Babylon.js
-function createMouseKeyboardAvatar(scene) {
+function createAvatar(scene) {
   // Create a box as the root of the avatar
   var root = BABYLON.MeshBuilder.CreateBox("box", { width: 0.2, height: 1.0, depth: 0.2 }, scene);
 
