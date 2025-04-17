@@ -22,12 +22,10 @@ async def main():
             for i in range(10):
                 tag = msg.strip()
                 send_time = time.time()
-                payload = f"{tag}|{i}|{send_time}"
+                payload = f"{tag}|{i}"
                 await websocket.send(payload)
-                response = await websocket.recv()
-                _, _, echo_send_time = response.split("|")
-                now = time.time()
-                rtt = now - float(echo_send_time)
-                print(f"Client round-trip {tag} [{i}]: {rtt:.6f} s")
+                await websocket.recv()
+                rtt_ms = (time.time() - send_time) * 1000
+                print(f"Client round-trip {tag} [{i}]: {rtt_ms:.3f} ms")
 
 asyncio.run(main())
