@@ -16,8 +16,8 @@ async def handler(websocket):
         await websocket.send(message)
 
 async def main():
-    async with websockets.serve(handler, "0.0.0.0", 5080):
-        print("WebSocket server listening on port 5080...")
+    async with websockets.serve(handler, "0.0.0.0", 37064):
+        print("WebSocket server listening on port 37064...")
         await asyncio.Future()  # Run forever
 
 asyncio.run(main())
